@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+        <p></p>
+        <div class= "panel-heading">Gestion des Categories</div>
+        <p></p>
+        <div class="panel-body">
+            <div>
+                <button class="btn btn-success" (click) ="onNewCat()">Nouvelle categorie</button>
+            </div>
+            <p></p>
+            <div *ngIf="mode=='new-cat'" class="col-md-6">
+                <form #f="ngForm" (ngSubmit)="onSaveCat(f.value)">
+                    <div class="form-group">
+                        <label name="control-label" >Name</label>
+                        <input type="text" name="name" ngModel class="form-control">
+                    </div>
+                    <button class="btn btn-success" type="submit">Save</button>
+                </form>
+            </div>
+            <p></p>
+            <div *ngIf="mode=='edit-cat'" class="col-md-6">
+                <form #f="ngForm" (ngSubmit)="onUpdateCat(f.value)">
+                    <div class="form-group">
+                        <label name="control-label" >Name</label>
+                        <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentCategorie.name">
+                    </div>
+                    <button class="btn btn-success" type="submit">Update</button>
+                </form>
+            </div>
+            <p></p>
+            <div *ngIf="mode=='list'">
+            <table class="table table-bordered" *ngIf="categories">
+                <tr>
+                    <th>Name</th>
+                </tr>
+                <tr *ngFor="let c of categories._embedded.categories">
+                    <td>{{c.name}}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click) ="onDeleteCat(c)">X</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click) ="onEditCat(c)">Edit</button>
+                    </td>
+                </tr>
+    
+            </table>
+        </div>
+    
+        </div>
+        
+    </div>
+    

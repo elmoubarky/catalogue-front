@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+    <p></p>
+    <div class= "panel-heading">Gestion des Utilisateurs</div>
+    <p></p>
+    <div class="panel-body">
+        <div>
+            <button class="btn btn-success" (click) ="onNewUser()">Nouveau User</button>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='new-user'" class="col-md-6">
+            <form #f="ngForm" (ngSubmit)="onSaveUser(f.value)">
+                <div class="form-group">
+                    <label name="control-label" >Username</label>
+                    <input type="text" name="username" ngModel class="form-control">
+                    <label name="control-label" >Password</label>
+                    <input type="password" name="password" ngModel class="form-control">
+                    <label name="control-label" >Confirmed Password</label>
+                    <input type="password" name="confirmedPassword" ngModel class="form-control">
+                </div>
+                <button class="btn btn-success" type="submit">Save</button>
+            </form>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='edit-user'" class="col-md-6">
+            <form #f="ngForm" (ngSubmit)="onUpdateUser(f.value)">
+                <div class="form-group">
+                    <label name="control-label" >Username</label>
+                    <input type="text" name="username" ngModel class="form-control" [(ngModel)]="currentUsers.username">
+                    
+                </div>
+                <button class="btn btn-success" type="submit">Update</button>
+            </form>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='list'">
+        <table class="table table-bordered" *ngIf="users">
+            <tr>
+                <th>Username</th>
+            </tr>
+            <tr *ngFor="let u of users._embedded.appUsers">
+                <td>{{u.username}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click) ="onDeleteUser(u)">X</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click) ="onEditUser(u)">Edit</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    </div>
+    
+</div>

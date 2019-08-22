@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+    <p></p>
+    <div class= "panel-heading">Gestion des Produits</div>
+    <p></p>
+    <div class="panel-body">
+        <div>
+            <button class="btn btn-success" (click) ="onNewProd()">Nouveau produit</button>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='new-prod'" class="col-md-6">
+            <form #f="ngForm" (ngSubmit)="onSaveProd(f.value)">
+                <div class="form-group">
+                    <label name="control-label" >Name</label>
+                    <input type="text" name="name" ngModel class="form-control">
+                    <label name="control-label" >Price</label>
+                    <input type="text" name="price" ngModel class="form-control">
+                </div>
+                <button class="btn btn-success" type="submit">Save</button>
+            </form>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='edit-prod'" class="col-md-6">
+            <form #f="ngForm" (ngSubmit)="onUpdateProd(f.value)">
+                <div class="form-group">
+                    <label name="control-label" >Name</label>
+                    <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentProducts.name">
+                    <label name="control-label" >Price</label>
+                    <input type="text" name="price" ngModel class="form-control" [(ngModel)]="currentProducts.price">
+                </div>
+                <button class="btn btn-success" type="submit">Update</button>
+            </form>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='list'">
+        <table class="table table-bordered" *ngIf="products">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <tr *ngFor="let p of products._embedded.products">
+                <td>{{p.name}}</td>
+                <td>{{p.price}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click) ="onDeleteProd(p)">X</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click) ="onEditProd(p)">Edit</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    </div>
+    
+</div>
